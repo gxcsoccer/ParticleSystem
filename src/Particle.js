@@ -39,6 +39,10 @@ Particle.prototype.update = function(delta) {
 	}
 };
 
+Particle.prototype.isAlive = function() {
+	return this.life > 0;
+};
+
 Particle.prototype.draw = function(context) {
 	context.save();
 	context.globalAlpha = this.alpha;

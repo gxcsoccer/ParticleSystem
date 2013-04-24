@@ -4,8 +4,9 @@
 var ParticleEmitter = function(config) {
 		this.emissionRate = config.emissionRate;
 		this.totalParticles = config.totalParticles;
-		this.particleCount = 0;
 		this.particlePool = [];
+		this.activeParticles = [];
+
 		this.emitCounter = 0;
 		this.rate = 1.0 / this.emissionRate;
 
@@ -21,12 +22,13 @@ ParticleEmitter.prototype.addParticle = function() {
 		return false;
 	}
 
-	this.particlePool[this.particleCount].init(this.metadata);
-	++this.particleCount;
+	var p = this.particlePool.pop();
+	p.init(this.metadata);
+	this.activeParticles.push(p);
 };
 
 ParticleEmitter.prototype.isFull = function() {
-	return this.particleCount === this.totalParticles;
+	return this.particlePool.length === 0;
 };
 
 ParticleEmitter.prototype.update = function(delta) {
@@ -39,9 +41,19 @@ ParticleEmitter.prototype.update = function(delta) {
 		}
 	}
 
-	var particleIndex = 0;
-	while (particleIndex < this.particleCount) {
-		this.particlePool[particleIndex++].update(delta);
+	var particleIndex = 0,
+		totalCount = this.activeParticles.length,
+		particle;
+	while (particleIndex < totalCount) {
+		particle = this.activeParticles[particleIndex];
+		particle.update(delta);
+		if (!particle.isAlive()) {
+			this.particlePool.push(particle);
+			this.activeParticles.splice(particleIndex, 1);
+			totalCount--;
+		} else {
+			particleIndex++			
+		}
 	}
 };
 
@@ -49,8 +61,9 @@ ParticleEmitter.prototype.draw = function(context) {
 	context.fillStyle = 'black';
 	context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-	var particleIndex = 0;
-	while (particleIndex < this.particleCount) {
-		this.particlePool[particleIndex++].draw(context);
+	var particleIndex = 0,
+		totalCount = this.activeParticles.length;
+	while (particleIndex < totalCount) {
+		this.activeParticles[particleIndex++].draw(context);
 	}
 };

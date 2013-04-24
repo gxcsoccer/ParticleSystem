@@ -4,18 +4,28 @@
 		};
 
 	var preDefinedConfig = {
-		totalParticles: 100,
-		emissionRate: 100 / 5,
+		totalParticles: 400,
+		emissionRate: 100,
 		pos: {
 			x: 400,
 			y: 300
 		},
-		life: 5,
-		size: 5,
-		color: "blue",
+		gravity: {
+			x: 0,
+			y: 150
+		},
+		life: 2.5,
+		lifeVar: 1,
+		radius: 5,
+		radiusVar: 3,
 		angle: 90,
-		angleVar: 180,
-		speed: 10
+		angleVar: 10,
+		speed: 180,
+		speedVar: 50,
+		startColor: [19.89, 59.93, 255, 1],
+		startColorVar: [0, 0, 48, 0.3],
+		endColor: [198.9, 198.9, 255, 0],
+		endColorVar: [0, 0, 0, 0],
 	};
 
 	var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
@@ -33,7 +43,6 @@
 			lastTimestamp = timestamp;
 
 			delta /= 1000;
-			//console.log(delta);
 			emitter.update(delta);
 			emitter.draw(context);
 

@@ -1,12 +1,29 @@
-var Particle = function(x, y, size, life, angle, speed, color, acceleration) {
-		this.pos = new Vector2d(x, y);
-		this.originalLife = this.life = life || Infinity;
-		this.originalSize = this.size = size;
-		this.color = color;
-
-		var angleInRadians = angle * Math.PI / 180;
-		this.velocity = new Vector2d(speed * Math.cos(angleInRadians), -speed * Math.sin(angleInRadians));
+var Particle = function() {
+		this.pos = new Vector2d(0, 0);
+		this.setVelocity(0, 0);
 	};
+
+Particle.prototype.init = function(config) {
+	this.pos.x = config.pos.x;
+	this.pos.y = config.pos.y;
+
+	this.originalLife = this.life = config.life || Infinity;
+	this.originalSize = this.size = config.size;
+
+	this.color = config.color;
+
+	var angle = config.angle + config.angleVar * Util.random11();
+	this.setVelocity(angle, config.speed);
+};
+
+Particle.prototype.setVelocity = function(angle, speed) {
+	if (!this.velocity) {
+		this.velocity = new Vector2d(Math.cos(Util.toRad(angle)) * speed, -Math.sin(Util.toRad(angle)) * speed);
+	} else {
+		this.velocity.x = Math.cos(Util.toRad(angle)) * speed;
+		this.velocity.y = -Math.sin(Util.toRad(angle)) * speed;
+	}
+};
 
 Particle.prototype.update = function(delta) {
 	this.life -= delta;
@@ -24,7 +41,7 @@ Particle.prototype.update = function(delta) {
 
 Particle.prototype.draw = function(context) {
 	context.save();
-	context.globalCompositeOperation = this.alpha;
+	context.globalAlpha = this.alpha;
 	context.fillStyle = this.color;
 	context.beginPath();
 	context.arc(this.pos.x, this.pos.y, this.size, 0, Math.PI * 2);

@@ -1,0 +1,3 @@
+var Emitter = function() {
+
+	};

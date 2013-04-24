@@ -3,6 +3,21 @@
 			return document.getElementById(id);
 		};
 
+	var preDefinedConfig = {
+		totalParticles: 100,
+		emissionRate: 100 / 5,
+		pos: {
+			x: 400,
+			y: 300
+		},
+		life: 5,
+		size: 5,
+		color: "blue",
+		angle: 90,
+		angleVar: 180,
+		speed: 10
+	};
+
 	var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
 	function(callback) {
 		window.setTimeout(function() {
@@ -10,7 +25,7 @@
 		}, 1 / 60 * 1000);
 	};
 
-	var canvas, context, psys, lastTimestamp = 0;
+	var canvas, context, emitter, lastTimestamp = 0;
 
 	var play = function(timestamp) {
 			timestamp = timestamp || 0;
@@ -19,9 +34,8 @@
 
 			delta /= 1000;
 			//console.log(delta);
-
-			psys.update(delta);
-			psys.draw(context);
+			emitter.update(delta);
+			emitter.draw(context);
 
 			requestAnimationFrame(play);
 		};
@@ -30,7 +44,7 @@
 		init: function() {
 			canvas = $('canvas');
 			context = canvas.getContext('2d');
-			psys = new ParticleSystem(100);
+			emitter = new ParticleEmitter(preDefinedConfig);
 
 			play();
 		}

@@ -9,8 +9,13 @@ var Particle = function() {
  * 初始化粒子
  */
 Particle.prototype.init = function(config) {
-	this.pos.x = this.originalPos.x = config.pos.x;
-	this.pos.y = this.originalPos.y = config.pos.y;
+	var b = {};
+	b.x = Util.random11() * config.posVar.x;
+	b.y = Util.random11() * config.posVar.y;
+	b = config.initPos(b);
+
+	this.pos.x = this.originalPos.x = config.pos.x + b.x;
+	this.pos.y = this.originalPos.y = config.pos.y + b.y;
 
 	this.originalLife = this.life = config.life + (Util.random11() * config.lifeVar) || Infinity;
 	this.originalRadius = this.radius = config.radius + (Util.random11() * config.radiusVar);

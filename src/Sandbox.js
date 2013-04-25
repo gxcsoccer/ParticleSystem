@@ -4,34 +4,42 @@
 		};
 
 	var preDefinedConfig = {
-		totalParticles: 400,
+		totalParticles: 600,
 		emissionRate: 100,
 		pos: {
 			x: 400,
 			y: 300
 		},
+		posVar: {
+			x: 180,
+			y: 20
+		},
 		gravity: {
 			x: 0,
-			y: 150
+			y: 0
 		},
 		life: 2.5,
 		lifeVar: 1,
 		radius: 5,
 		radiusVar: 3,
 		angle: 90,
-		angleVar: 10,
-		speed: 180,
-		speedVar: 50,
+		angleVar: 180,
+		speed: 0,
+		speedVar: 0,
 		startScale: 1,
 		endScale: 0.6,
-		tangentialAccel: 80,
+		tangentialAccel: 480,
 		tangentialAccelVar: 10,
-		radialAccel: -80,
+		radialAccel: -480,
 		radialAccelVar: 10,
 		startColor: [19.89, 59.93, 255, 1],
 		startColorVar: [0, 0, 48, 0.3],
 		endColor: [198.9, 198.9, 255, 0],
 		endColorVar: [0, 0, 0, 0],
+		initPos: function(pos) {
+			var r = Util.toRad(pos.x);
+			return new Vector2d(Math.cos(r) * 60, Math.sin(r) * 80);
+		}
 	};
 
 	var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||

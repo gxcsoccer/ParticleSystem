@@ -4,8 +4,8 @@
 		};
 
 	var preDefinedConfig = {
-		totalParticles: 600,
-		emissionRate: 100,
+		totalParticles: 400,
+		emissionRate: 400 / 2,
 		pos: {
 			x: 400,
 			y: 300
@@ -18,7 +18,7 @@
 			x: 0,
 			y: 0
 		},
-		life: 2.5,
+		life: 2,
 		lifeVar: 1,
 		radius: 5,
 		radiusVar: 3,

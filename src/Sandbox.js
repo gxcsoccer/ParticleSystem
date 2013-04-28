@@ -36,22 +36,18 @@
 			startColor: [19.89, 59.93, 255, 1],
 			startColorVar: [0, 0, 48, 0.3],
 			endColor: [198.9, 198.9, 255, 0],
-			endColorVar: [0, 0, 0, 0],
-			// initPos: function(pos) {
-			// 	var r = Util.toRad(pos.x);
-			// 	return new Vector2d(Math.cos(r) * 60, Math.sin(r) * 80);
-			// }
+			endColorVar: [0, 0, 0, 0]
 		},
 		ring: {
-			totalParticles: 100,
-			emissionRate: 100 / 2,
+			totalParticles: 200,
+			emissionRate: 100,
 			pos: {
 				x: 400,
 				y: 300
 			},
 			posVar: {
 				x: 180,
-				y: 20
+				y: 0
 			},
 			gravity: {
 				x: 0,
@@ -60,17 +56,17 @@
 			life: 2.5,
 			lifeVar: 1,
 			radius: 5,
-			radiusVar: 3,
+			radiusVar: 2,
 			angle: 90,
 			angleVar: 180,
 			speed: 0,
 			speedVar: 0,
 			startScale: 1,
 			endScale: 1,
-			tangentialAccel: 480,
-			tangentialAccelVar: 30,
-			radialAccel: -1080,
-			radialAccelVar: 30,
+			tangentialAccel: 20,
+			tangentialAccelVar: 0,
+			radialAccel: -10,
+			radialAccelVar: 5,
 			startColor: [19.89, 59.93, 255, 1],
 			startColorVar: [0, 0, 48, 0.3],
 			endColor: [198.9, 198.9, 255, 0],

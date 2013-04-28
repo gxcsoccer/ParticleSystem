@@ -5,8 +5,10 @@
 
 	var preDefinedConfig = {
 		waterfall: {
-			totalParticles: 400,
-			emissionRate: 400 / 2,
+			totalParticles: 100,
+			emissionRate: 100,
+			boundary: new Rectangle(new Vector2d(0, 0), 800, 600),
+			restitution: .4,
 			pos: {
 				x: 400,
 				y: 300
@@ -19,13 +21,13 @@
 				x: 0,
 				y: 100
 			},
-			life: 10,
-			lifeVar: 5,
+			life: Infinity,
+			lifeVar: 1,
 			radius: 5,
 			radiusVar: 3,
 			angle: 90,
 			angleVar: 180,
-			speed: 80,
+			speed: 180,
 			speedVar: 20,
 			startScale: 1,
 			endScale: 1,
@@ -103,7 +105,7 @@
 		init: function() {
 			canvas = $('canvas');
 			context = canvas.getContext('2d');
-			emitter = new ParticleEmitter(preDefinedConfig.ring);
+			emitter = new ParticleEmitter(preDefinedConfig.waterfall);
 
 			play();
 		}

@@ -14,6 +14,9 @@ Particle.prototype.init = function(config) {
 	b.y = Util.random11() * config.posVar.y;
 	config.initPos && (b = config.initPos(b));
 
+	config.boundary && this.setBoundary(config.boundary);
+	this.restitution = config.restitution || 1;
+
 	this.originalPos.x = config.pos.x;
 	this.originalPos.y = config.pos.y;
 	this.pos.x = config.pos.x + b.x;
@@ -40,6 +43,33 @@ Particle.prototype.init = function(config) {
 	(endColor[0] - startColor[0]) / this.life, (endColor[1] - startColor[1]) / this.life, (endColor[2] - startColor[2]) / this.life, (endColor[3] - startColor[3]) / this.life];
 
 	this.deltaScale = config.endScale - config.startScale;
+};
+
+Particle.prototype.setBoundary = function(rect) {
+	this.boundary = rect;
+};
+
+Particle.prototype.resolveCollision = function() {
+	if (!this.boundary) {
+		return;
+	}
+
+	if (this.boundary.left > (this.pos.x - this.radius)) {
+		this.pos.x = this.radius;
+		this.velocity.x *= -this.restitution;
+	}
+	if (this.boundary.right < (this.pos.x + this.radius)) {
+		this.pos.x = this.boundary.right - this.radius;
+		this.velocity.x *= -this.restitution;
+	}
+	if (this.boundary.top > (this.pos.y - this.radius)) {
+		this.pos.y = this.radius;
+		this.velocity.y *= -this.restitution;
+	}
+	if (this.boundary.bottom < (this.pos.y + this.radius)) {
+		this.pos.y = this.boundary.bottom - this.radius;
+		this.velocity.y *= -this.restitution;
+	}
 };
 
 /**
@@ -87,18 +117,7 @@ Particle.prototype.update = function(delta) {
 		});
 
 		// TOD0:
-		if(this.pos.y > 600) {
-			this.velocity.y *= -0.8;
-			this.pos.y = 1200 - this.pos.y;
-		}
-		if(this.pos.x < 0) {
-			this.velocity.x *= -0.8;
-			this.pos.x *= -1;
-		}
-		if(this.pos.x > 800) {
-			this.velocity.x *= -0.8;
-			this.pos.x = 1600 - this.pos.x;
-		}
+		this.resolveCollision();
 
 		this.color[0] += this.deltaColor[0] * delta;
 		this.color[1] += this.deltaColor[1] * delta;

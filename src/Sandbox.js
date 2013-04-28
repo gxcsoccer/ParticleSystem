@@ -43,8 +43,8 @@
 			// }
 		},
 		ring: {
-			totalParticles: 400,
-			emissionRate: 400 / 2,
+			totalParticles: 100,
+			emissionRate: 100 / 2,
 			pos: {
 				x: 400,
 				y: 300
@@ -66,10 +66,10 @@
 			speed: 0,
 			speedVar: 0,
 			startScale: 1,
-			endScale: 0.6,
+			endScale: 1,
 			tangentialAccel: 480,
 			tangentialAccelVar: 30,
-			radialAccel: -480,
+			radialAccel: -1080,
 			radialAccelVar: 30,
 			startColor: [19.89, 59.93, 255, 1],
 			startColorVar: [0, 0, 48, 0.3],

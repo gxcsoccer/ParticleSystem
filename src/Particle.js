@@ -14,8 +14,10 @@ Particle.prototype.init = function(config) {
 	b.y = Util.random11() * config.posVar.y;
 	config.initPos && (b = config.initPos(b));
 
-	this.pos.x = this.originalPos.x = config.pos.x + b.x;
-	this.pos.y = this.originalPos.y = config.pos.y + b.y;
+	this.originalPos.x = config.pos.x;
+	this.originalPos.y = config.pos.y;
+	this.pos.x = config.pos.x + b.x;
+	this.pos.y = config.pos.y + b.y;
 
 	this.originalLife = this.life = config.life + (Util.random11() * config.lifeVar) || Infinity;
 	this.originalRadius = this.radius = config.radius + (Util.random11() * config.radiusVar);

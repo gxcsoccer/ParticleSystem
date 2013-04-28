@@ -12,7 +12,7 @@ Particle.prototype.init = function(config) {
 	var b = {};
 	b.x = Util.random11() * config.posVar.x;
 	b.y = Util.random11() * config.posVar.y;
-	b = config.initPos(b);
+	config.initPos && (b = config.initPos(b));
 
 	this.pos.x = this.originalPos.x = config.pos.x + b.x;
 	this.pos.y = this.originalPos.y = config.pos.y + b.y;
@@ -83,6 +83,20 @@ Particle.prototype.update = function(delta) {
 			x: this.velocity.x * delta,
 			y: this.velocity.y * delta
 		});
+
+		// TOD0:
+		if(this.pos.y > 600) {
+			this.velocity.y *= -0.8;
+			this.pos.y = 1200 - this.pos.y;
+		}
+		if(this.pos.x < 0) {
+			this.velocity.x *= -0.8;
+			this.pos.x *= -1;
+		}
+		if(this.pos.x > 800) {
+			this.velocity.x *= -0.8;
+			this.pos.x = 1600 - this.pos.x;
+		}
 
 		this.color[0] += this.deltaColor[0] * delta;
 		this.color[1] += this.deltaColor[1] * delta;
